@@ -11,6 +11,7 @@ import { Gallery } from './components/sections/Gallery';
 import { Testimonials } from './components/sections/Testimonials';
 import { FAQ } from './components/sections/FAQ';
 import { Location } from './components/sections/Location';
+import { BookingForm } from './components/sections/BookingForm';
 import { siteConfig } from './config/site.config';
 import { BookingProvider } from './lib/bookingContext';
 
@@ -24,7 +25,7 @@ function renderSection(id: (typeof siteConfig.sections)[number]['id']) {
     case 'testimonials': return <Testimonials key={id} />;
     case 'faq': return <FAQ key={id} />;
     case 'location': return <Location key={id} />;
-    case 'booking': return <SectionMarker key={id} sectionId={id} />;
+    case 'booking': return <BookingForm key={id} />;
     default: return <SectionMarker key={id} sectionId={id} />;
   }
 }

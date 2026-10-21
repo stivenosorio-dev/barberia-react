@@ -41,3 +41,13 @@ Estado: cerrada tras revisión manual del usuario; `npm run verify` aprobado. Se
 - [x] `npm run verify` pasa y la revisión manual a 360/390 px, claro/oscuro, fue aprobada.
 - [x] El orden y activación de secciones responden a la configuración.
 - Imágenes prototipo: `corte-clasico.jpg`, `perfilado-barba.jpg`, `corte-y-barba.jpg`, `galeria-01.jpg`, `galeria-02.jpg`, `galeria-03.jpg` (`public/images/`). Fuentes: Pexels; licencia gratuita sin atribución requerida.
+
+# Fase 3 — Formulario (envío simulado)
+
+Estado: cerrada tras validación manual del usuario (PC y celular); `npm run verify` aprobado.
+
+- [x] T3.1 `src/lib/validation.ts`: esquema Zod; nombre, teléfono, servicio, fecha/hora con zona horaria y anticipación, nota opcional, honeypot, UUID y `origin`.
+- [x] T3.2 `BookingForm.tsx`: campos según config, errores en español, estados de envío, servicio preseleccionado, honeypot y privacidad informativa; reintento reutiliza UUID.
+- [x] T3.3 `src/lib/api.ts`: envío simulado con retardo para sustituir en Fase 4.
+- [x] No se envía con datos inválidos; estados y validación revisados.
+- [x] Formulario revisado en claro y oscuro a 390px; `npm run verify` pasa.
