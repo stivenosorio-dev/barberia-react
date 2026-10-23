@@ -32,6 +32,7 @@ export function BookingForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<FormStatus>('idle');
   const [submissionId, setSubmissionId] = useState<string | null>(null);
+  const [whatsappUrl, setWhatsappUrl] = useState('');
 
   useEffect(() => {
     if (selectedServiceId && siteConfig.services.some(({ id }) => id === selectedServiceId)) {
@@ -46,7 +47,8 @@ export function BookingForm() {
       delete next[field];
       return next;
     });
-    if (status === 'error') setStatus('idle');
+    if (status === 'error' || status === 'éxito') setStatus('idle');
+    if (status === 'éxito') setWhatsappUrl('');
   }
 
   async function handleSubmit(event: FormSubmitEvent) {
@@ -73,8 +75,20 @@ export function BookingForm() {
     setStatus('enviando');
     try {
       await submitBooking(result.data);
+      const service = siteConfig.services.find(({ id }) => id === result.data.serviceId);
+      const message = siteConfig.booking.whatsappTemplate
+        .split('{nombre}').join(result.data.name)
+        .split('{servicio}').join(service?.title ?? '')
+        .split('{fecha}').join(siteConfig.booking.fields.dateTime ? result.data.dateTime ?? '' : 'Sin preferencia')
+        .split('{negocio}').join(siteConfig.business.name);
+      const url = new URL(`https://wa.me/${siteConfig.contact.whatsapp}`);
+      url.searchParams.set('text', message);
+      setWhatsappUrl(url.toString());
       setStatus('éxito');
       setSubmissionId(null);
+      try {
+        window.open(url.toString(), '_blank', 'noopener,noreferrer');
+      } catch {}
     } catch {
       setStatus('error');
     }
@@ -203,6 +217,15 @@ export function BookingForm() {
           <div className="text-sm text-success" role="status">
             <p className="font-semibold">{siteConfig.booking.messages.successTitle}</p>
             <p>{siteConfig.booking.messages.successBody}</p>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={siteConfig.copy.labels.openWhatsApp}
+              className="mt-3 inline-flex min-h-12 items-center justify-center rounded-[var(--radius)] bg-primary px-5 font-semibold text-primary-fg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+            >
+              {siteConfig.copy.labels.openWhatsApp}
+            </a>
           </div>
         )}
 

@@ -51,3 +51,22 @@ Estado: cerrada tras validación manual del usuario (PC y celular); `npm run ver
 - [x] T3.3 `src/lib/api.ts`: envío simulado con retardo para sustituir en Fase 4.
 - [x] No se envía con datos inválidos; estados y validación revisados.
 - [x] Formulario revisado en claro y oscuro a 390px; `npm run verify` pasa.
+
+# Fase 4 — Backend: Pages Function, Apps Script y hoja
+
+Estado: cerrada tras pruebas integradas en la hoja de pruebas; `npm run verify` aprobado.
+
+## Bloque A — Función y cliente
+- [x] T4.1 Wrangler, `wrangler.toml` con `dist` y script `dev:cf`.
+- [x] T4.2 Function POST-only con revalidación, honeypot, hash IP con salt, llamada Apps Script autenticada, timeout y códigos controlados.
+- [x] T4.3 Cliente usa `/api/lead`; variables nombradas en `.env.example`, sin valores.
+
+## Bloque B — Usuario
+- [x] Apps Script ligado a la hoja de pruebas, Script Properties y Web App `/exec` configuradas.
+
+## Verificación integrada
+- [x] Lead de prueba guardado; fila y enlace «Escribir» confirmados por el usuario.
+- [x] Token incorrecto devuelve `UNAUTHORIZED`; cuarto envío devuelve `RATE_LIMIT`.
+- [x] `=1+1` queda como texto; repetición del mismo `submissionId` no duplica la fila.
+- [x] `dist/` sin secretos; navegador envía solo a `/api/lead`.
+- [x] Prueba real local: HTTP 200, `{code: "OK"}` en 4.65 s; problemas previos debidos a procesos Wrangler simultáneos.

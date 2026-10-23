@@ -3,9 +3,9 @@
 Estado vivo. Reescríbelo en cada cierre, no acumules: máx. 30 líneas. El detalle de fases cerradas va a `docs/historial.md`.
 
 ## Estado
-- Fase actual: 4 (backend de leads).
-- Último cierre: Fase 3, formulario revisado y aprobado en PC y celular; `npm run verify` aprobado.
-- Fases 1, 2 y 3 cerradas; Fase 3 archivada en `docs/historial.md` y marcada en `docs/plan/fase-3.md`.
+- Fase actual: 5 (despliegue y producción).
+- Último cierre: Fase 4, integración Apps Script/Pages probada con hoja de pruebas; usuario confirmó fila y enlace.
+- Fases 1–4 cerradas; Fase 4 archivada y marcada en `docs/plan/fase-4.md`.
 
 ## Decisiones vigentes
 - React + Vite (SPA), Tailwind 4, Zod. Backend en Cloudflare Pages Functions. Datos en Google Sheets vía Apps Script.
@@ -15,6 +15,7 @@ Estado vivo. Reescríbelo en cada cierre, no acumules: máx. 30 líneas. El deta
 
 ## Errores a evitar
 - Ver `docs/lecciones.md` antes de tocar Apps Script, Cloudflare o WhatsApp.
+- Mantener un solo proceso Wrangler durante pruebas locales.
 
 ## Próximo paso
-- Ejecutar Fase 4 según `docs/plan/fase-4.md`.
+- Ejecutar Fase 5 según `docs/plan/fase-5.md`.
