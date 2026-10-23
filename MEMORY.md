@@ -3,9 +3,9 @@
 Estado vivo. Reescríbelo en cada cierre, no acumules: máx. 30 líneas. El detalle de fases cerradas va a `docs/historial.md`.
 
 ## Estado
-- Fase actual: 5 (despliegue y producción).
-- Último cierre: Fase 4, integración Apps Script/Pages probada con hoja de pruebas; usuario confirmó fila y enlace.
-- Fases 1–4 cerradas; Fase 4 archivada y marcada en `docs/plan/fase-4.md`.
+- Fase actual: 6 (SEO, rendimiento y accesibilidad).
+- Último cierre: Fase 5, revisión de flujo WhatsApp/errores aprobada por el usuario; `npm run verify` aprobado.
+- Fases 1–5 cerradas; decisión 1 resuelta: tras fallo final, avisar que no se guardó y ofrecer WhatsApp y llamada.
 
 ## Decisiones vigentes
 - React + Vite (SPA), Tailwind 4, Zod. Backend en Cloudflare Pages Functions. Datos en Google Sheets vía Apps Script.
@@ -18,4 +18,4 @@ Estado vivo. Reescríbelo en cada cierre, no acumules: máx. 30 líneas. El deta
 - Mantener un solo proceso Wrangler durante pruebas locales.
 
 ## Próximo paso
-- Ejecutar Fase 5 según `docs/plan/fase-5.md`.
+- Ejecutar Fase 6 según `docs/plan/fase-6.md`.

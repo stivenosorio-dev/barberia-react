@@ -70,3 +70,17 @@ Estado: cerrada tras pruebas integradas en la hoja de pruebas; `npm run verify` 
 - [x] `=1+1` queda como texto; repetición del mismo `submissionId` no duplica la fila.
 - [x] `dist/` sin secretos; navegador envía solo a `/api/lead`.
 - [x] Prueba real local: HTTP 200, `{code: "OK"}` en 4.65 s; problemas previos debidos a procesos Wrangler simultáneos.
+
+# Fase 5 — WhatsApp, confirmación y casos de falla
+
+Estado: cerrada tras validación del usuario en el formulario y teléfono; `npm run verify` y revisión de código aprobados.
+
+- [x] T5.1 Enlace `wa.me` con mensaje configurado y codificado.
+- [x] T5.2 Confirmación, respaldo permanente Abrir WhatsApp y botón llamar.
+- [x] T5.3 Intento de apertura de WhatsApp solo después del guardado confirmado.
+- [x] T5.4 Si WhatsApp no abre tras guardar, mensaje de contacto y llamada.
+- [x] T5.5 Máximo dos POST total con el mismo `submissionId`; ante fallo final, indicar que no se guardó y ofrecer WhatsApp directo y llamada.
+- [x] Decisión 1 resuelta por el usuario: WhatsApp directo más llamada tras fallo definitivo, con aviso claro.
+- [x] Envío local integrado probado con Wrangler; 200/OK y registro en Sheets confirmado por el usuario.
+- [x] Reintento total acotado; la repetición usa el mismo `submissionId`.
+- [x] Revisión manual del usuario aprobada.

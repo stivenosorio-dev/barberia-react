@@ -3,6 +3,23 @@ import { siteConfig } from '../../config/site.config';
 import { useBookingContext } from '../../lib/bookingContext';
 import { submitBooking } from '../../lib/api';
 import { bookingSchema } from '../../lib/validation';
+import { createWhatsAppUrl } from '../../lib/whatsapp';
+
+const SUBMISSION_TIMEOUT_MS = 9_000;
+
+async function submitBookingWithTimeout(booking: Parameters<typeof submitBooking>[0]): Promise<void> {
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  try {
+    await Promise.race([
+      submitBooking(booking),
+      new Promise<never>((_, reject) => {
+        timeout = setTimeout(reject, SUBMISSION_TIMEOUT_MS);
+      }),
+    ]);
+  } finally {
+    if (timeout) clearTimeout(timeout);
+  }
+}
 
 type BookingFields = {
   name: string;
@@ -47,13 +64,16 @@ export function BookingForm() {
       delete next[field];
       return next;
     });
-    if (status === 'error' || status === 'éxito') setStatus('idle');
-    if (status === 'éxito') setWhatsappUrl('');
+    if (status === 'error' || status === 'éxito') {
+      setStatus('idle');
+      setWhatsappUrl('');
+      if (status === 'error' && whatsappUrl) setSubmissionId(null);
+    }
   }
 
   async function handleSubmit(event: FormSubmitEvent) {
     event.preventDefault();
-    if (status === 'enviando') return;
+    if (status === 'enviando' || (status === 'error' && whatsappUrl)) return;
 
     const attemptId = submissionId ?? crypto.randomUUID();
     setSubmissionId(attemptId);
@@ -73,23 +93,27 @@ export function BookingForm() {
 
     setErrors({});
     setStatus('enviando');
+    const url = createWhatsAppUrl(result.data);
     try {
-      await submitBooking(result.data);
-      const service = siteConfig.services.find(({ id }) => id === result.data.serviceId);
-      const message = siteConfig.booking.whatsappTemplate
-        .split('{nombre}').join(result.data.name)
-        .split('{servicio}').join(service?.title ?? '')
-        .split('{fecha}').join(siteConfig.booking.fields.dateTime ? result.data.dateTime ?? '' : 'Sin preferencia')
-        .split('{negocio}').join(siteConfig.business.name);
-      const url = new URL(`https://wa.me/${siteConfig.contact.whatsapp}`);
-      url.searchParams.set('text', message);
-      setWhatsappUrl(url.toString());
+      let saved = false;
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        try {
+          await submitBookingWithTimeout(result.data);
+          saved = true;
+          break;
+        } catch {
+          if (attempt === 1) throw new Error();
+        }
+      }
+      if (!saved) throw new Error();
+      setWhatsappUrl(url);
       setStatus('éxito');
       setSubmissionId(null);
       try {
-        window.open(url.toString(), '_blank', 'noopener,noreferrer');
+        window.open(url, '_blank', 'noopener,noreferrer');
       } catch {}
     } catch {
+      setWhatsappUrl(url);
       setStatus('error');
     }
   }
@@ -210,7 +234,25 @@ export function BookingForm() {
         {status === 'error' && (
           <div className="text-sm text-danger" role="alert">
             <p className="font-semibold">{siteConfig.booking.messages.errorTitle}</p>
-            <p>{Object.values(errors)[0] ?? siteConfig.booking.messages.errorBody}</p>
+            <p>{whatsappUrl ? siteConfig.booking.messages.errorBody : Object.values(errors)[0]}</p>
+            {whatsappUrl && (
+              <div className="mt-3 flex flex-wrap gap-3">
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-12 items-center justify-center rounded-[var(--radius)] bg-primary px-5 font-semibold text-primary-fg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                >
+                  {siteConfig.copy.labels.openWhatsApp}
+                </a>
+                <a
+                  href={`tel:${siteConfig.contact.phone}`}
+                  className="inline-flex min-h-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface px-5 font-semibold text-fg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                >
+                  {siteConfig.copy.labels.call}
+                </a>
+              </div>
+            )}
           </div>
         )}
         {status === 'éxito' && (
@@ -226,12 +268,18 @@ export function BookingForm() {
             >
               {siteConfig.copy.labels.openWhatsApp}
             </a>
+            <a
+              href={`tel:${siteConfig.contact.phone}`}
+              className="mt-3 inline-flex min-h-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface px-5 font-semibold text-fg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+            >
+              {siteConfig.copy.labels.call}
+            </a>
           </div>
         )}
 
         <button
           type="submit"
-          disabled={status === 'enviando'}
+          disabled={status === 'enviando' || (status === 'error' && Boolean(whatsappUrl))}
           className="min-h-12 rounded-[var(--radius)] bg-primary px-5 font-semibold text-primary-fg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-60"
         >
           {siteConfig.copy.labels.submitBooking}

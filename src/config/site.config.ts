@@ -147,12 +147,13 @@ export const siteConfig: SiteConfig = {
     fields: { dateTime: true, note: true },
     minAdvanceMinutes: 60,
     whatsappTemplate: 'Hola, soy {nombre}. Quiero reservar {servicio} para {fecha}. {negocio}',
+    noDatePreference: 'Sin preferencia',
     privacyNote: 'Usaremos tus datos únicamente para gestionar esta solicitud de cita.',
     messages: {
       successTitle: 'Solicitud enviada',
-      successBody: 'Gracias. Abriremos WhatsApp para continuar con la confirmación.',
+      successBody: 'Te contactaremos para confirmar. Si WhatsApp no se abre o no tienes conexión, llámanos.',
       errorTitle: 'No pudimos enviar la solicitud',
-      errorBody: 'Inténtalo de nuevo o escríbenos directamente por WhatsApp.',
+      errorBody: 'No se guardó tu solicitud después de dos intentos. Escríbenos por WhatsApp o llámanos para ayudarte.',
     },
   },
 };

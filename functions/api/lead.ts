@@ -31,28 +31,26 @@ async function createIpHash(ipAddress: string, salt: string): Promise<string> {
 }
 
 async function sendToAppsScript(url: string, payload: object): Promise<LeadCode> {
-  for (let attempt = 0; attempt < 2; attempt += 1) {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8_000);
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        redirect: 'follow',
-        signal: controller.signal,
-      });
-      if (!response.ok) continue;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8_000);
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      redirect: 'follow',
+      signal: controller.signal,
+    });
+    if (!response.ok) return 'ERROR';
 
-      const result: unknown = await response.json();
-      if (typeof result !== 'object' || result === null || !('code' in result)) continue;
-      const code = (result as { code: unknown }).code;
-      if (typeof code === 'string' && allowedCodes.has(code as LeadCode)) return code as LeadCode;
-    } catch {
-      if (attempt === 1) return 'ERROR';
-    } finally {
-      clearTimeout(timeout);
-    }
+    const result: unknown = await response.json();
+    if (typeof result !== 'object' || result === null || !('code' in result)) return 'ERROR';
+    const code = (result as { code: unknown }).code;
+    if (typeof code === 'string' && allowedCodes.has(code as LeadCode)) return code as LeadCode;
+  } catch {
+    return 'ERROR';
+  } finally {
+    clearTimeout(timeout);
   }
   return 'ERROR';
 }

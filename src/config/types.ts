@@ -106,6 +106,7 @@ export interface SiteConfig {
     fields: { dateTime: boolean; note: boolean };
     minAdvanceMinutes: number;
     whatsappTemplate: string;
+    noDatePreference: string;
     privacyNote?: string;
     messages: { successTitle: string; successBody: string; errorTitle: string; errorBody: string };
   };
