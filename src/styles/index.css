@@ -15,6 +15,8 @@
   --color-accent-fg: var(--site-color-accent-fg);
   --color-success: var(--site-color-success);
   --color-danger: var(--site-color-danger);
+  --color-whatsapp: var(--site-color-whatsapp);
+  --color-whatsapp-fg: var(--site-color-whatsapp-fg);
   --font-heading: var(--site-font-display);
   --font-body-copy: var(--site-font-body);
 }

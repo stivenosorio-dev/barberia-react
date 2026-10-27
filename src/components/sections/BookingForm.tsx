@@ -127,7 +127,7 @@ export function BookingForm() {
       <h2 id="booking-title" className="font-heading text-3xl font-semibold text-fg">
         {siteConfig.copy.labels.submitBooking}
       </h2>
-      <form className="relative mt-8 grid max-w-2xl gap-5" onSubmit={handleSubmit} noValidate>
+      <form className="relative mt-8 grid max-w-2xl gap-5 lg:mx-auto" onSubmit={handleSubmit} noValidate>
         <div className="absolute -left-[9999px] top-0" aria-hidden="true">
           <input
             id="booking-website"

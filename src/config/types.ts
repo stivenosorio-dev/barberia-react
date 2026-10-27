@@ -22,6 +22,8 @@ export type Palette = {
   accentFg: `#${string}`;
   success: `#${string}`;
   danger: `#${string}`;
+  whatsapp: `#${string}`;
+  whatsappFg: `#${string}`;
 };
 
 export type FontSpec = {
@@ -52,6 +54,7 @@ export interface SiteConfig {
     instagram?: string;
     facebook?: string;
     address: string;
+    addressIsPrototype: boolean;
     mapsUrl: string;
     mapsEmbedUrl?: string;
   };
@@ -95,7 +98,7 @@ export interface SiteConfig {
     gallery: { title: string; subtitle?: string };
     testimonials: { title: string; subtitle?: string };
     faq: { title: string; subtitle?: string };
-    location: { title: string; directions: string };
+    location: { title: string; directions: string; prototypeNotice: string };
     footer: { tagline: string; rights: string; madeWith?: string };
   };
   services: { id: string; title: string; description?: string; durationMin: number; price: number; image: string }[];

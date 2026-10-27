@@ -84,3 +84,39 @@ Estado: cerrada tras validación del usuario en el formulario y teléfono; `npm 
 - [x] Envío local integrado probado con Wrangler; 200/OK y registro en Sheets confirmado por el usuario.
 - [x] Reintento total acotado; la repetición usa el mismo `submissionId`.
 - [x] Revisión manual del usuario aprobada.
+
+## Fase 6.1 — Ajustes del formulario, WhatsApp y mapa (cerrada)
+
+**Cierre:** revisión manual confirmada por el usuario.
+
+### Alcance
+
+- Ajustar la presentación del formulario para que quede centrado en pantallas amplias, conservando su comportamiento y disposición mobile-first en móvil.
+- Cuando el guardado del formulario en Sheets esté confirmado, abrir WhatsApp automáticamente con un mensaje de solicitud personalizado a partir de los datos enviados y de la configuración existente. Si el navegador bloquea la apertura, mostrar una alternativa visible para abrir WhatsApp manualmente.
+- Integrar un mapa con una dirección aleatoria de Medellín únicamente como prototipo. La dirección debe ser configurable, quedar explícitamente identificada como prototipo y no presentarse como ubicación real del negocio. No publicar el prototipo como dirección real.
+
+No se añadirán datos reales del negocio ni funciones ajenas a estos ajustes. Los textos, dirección y demás datos variables deben proceder de la configuración del sitio; no se fijarán datos de cliente en componentes.
+
+### Orden de ejecución
+
+1. Revisar el flujo actual del formulario y el origen de los datos configurables necesarios; conservar la condición de éxito que confirma el guardado en Sheets.
+2. Centrar el formulario solo en pantallas amplias y comprobar que el diseño móvil no se altera.
+3. Después de confirmar el guardado, preparar el mensaje personalizado y abrir WhatsApp automáticamente. Mantener una alternativa manual visible cuando la apertura automática no se complete o sea bloqueada; nunca abrir WhatsApp antes de confirmar el guardado.
+4. Añadir el mapa con la dirección prototipo configurable de Medellín e indicar claramente en la interfaz y en la configuración que es una dirección aleatoria de prototipo, no una ubicación confirmada.
+5. Ejecutar las verificaciones de aceptación; sustituir o retirar la dirección prototipo antes de cualquier uso público como ubicación del negocio.
+
+### Criterios de aceptación
+
+- En una pantalla amplia, el formulario se percibe centrado; en móvil conserva su disposición usable, sin desbordamiento ni cambios que dificulten completarlo.
+- Ante un guardado confirmado en Sheets, se intenta abrir WhatsApp con un mensaje asociado a la solicitud y personalizado con la información disponible/configurada. No se abre si el guardado falla.
+- Si la apertura automática es bloqueada, el usuario ve y puede activar una alternativa manual para continuar a WhatsApp.
+- El mapa muestra la dirección configurable de Medellín marcada claramente como prototipo. No se insinúa que sea la dirección real del negocio y no se incorporan datos reales supuestos.
+- El mapa, el formulario y el flujo de reserva existentes siguen siendo utilizables en móvil y escritorio; no se amplía el alcance a disponibilidad, calendario u otras funciones.
+
+### Verificaciones
+
+- Probar el formulario en anchos móvil y amplio: disposición, centrado, campos y acciones.
+- Verificar el flujo con guardado confirmado y con fallo: WhatsApp solo se intenta tras el éxito.
+- Simular o comprobar bloqueo del navegador y confirmar que la alternativa manual permanece visible y funciona.
+- Comprobar que el texto de WhatsApp corresponde a la solicitud y que la dirección del mapa proviene de configuración y está identificada como prototipo.
+- Ejecutar `npm run verify` al terminar el bloque.

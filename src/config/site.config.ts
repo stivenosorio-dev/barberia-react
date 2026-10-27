@@ -16,8 +16,10 @@ export const siteConfig: SiteConfig = {
     whatsapp: '573000000000',
     email: 'hola@lanavajadorada.example',
     instagram: 'https://instagram.com/lanavajadorada.example',
-    address: 'Calle Ficticia 123, Laureles, Medellín',
-    mapsUrl: 'https://maps.example.com/la-navaja-dorada',
+    address: 'Calle 99 # 99-99',
+    addressIsPrototype: true,
+    mapsUrl: 'https://www.google.com/maps?q=Calle+99+%2399-99,+Medell%C3%ADn',
+    mapsEmbedUrl: 'https://www.google.com/maps?q=Calle+99+%2399-99,+Medell%C3%ADn&output=embed',
   },
   schedule: {
     weekly: [
@@ -57,6 +59,8 @@ export const siteConfig: SiteConfig = {
         accentFg: '#241a0c',
         success: '#286747',
         danger: '#a73d36',
+        whatsapp: '#25D366',
+        whatsappFg: '#102018',
       },
       dark: {
         bg: '#171513',
@@ -71,6 +75,8 @@ export const siteConfig: SiteConfig = {
         accentFg: '#211707',
         success: '#7ac89b',
         danger: '#f08a7c',
+        whatsapp: '#25D366',
+        whatsappFg: '#102018',
       },
     },
   },
@@ -121,7 +127,11 @@ export const siteConfig: SiteConfig = {
     gallery: { title: 'Estilos hechos con oficio', subtitle: 'Un vistazo al trabajo de la casa.' },
     testimonials: { title: 'Palabra de clientes', subtitle: 'Historias de quienes ya pasaron por la silla.' },
     faq: { title: 'Preguntas frecuentes' },
-    location: { title: 'Estamos en Laureles', directions: 'Escríbenos si necesitas indicaciones para llegar.' },
+    location: {
+      title: 'Ubicación de demostración',
+      directions: 'Consulta la ubicación de demostración en el mapa.',
+      prototypeNotice: 'Dirección aleatoria de Medellín para prototipo; no corresponde a la ubicación real del negocio.',
+    },
     footer: { tagline: 'Buen corte, buena conversación.', rights: 'Todos los derechos reservados.' },
   },
   services: [
@@ -151,7 +161,7 @@ export const siteConfig: SiteConfig = {
     privacyNote: 'Usaremos tus datos únicamente para gestionar esta solicitud de cita.',
     messages: {
       successTitle: 'Solicitud enviada',
-      successBody: 'Te contactaremos para confirmar. Si WhatsApp no se abre o no tienes conexión, llámanos.',
+      successBody: 'Te contactaremos para confirmar. Si WhatsApp no se abrió automáticamente, puedes continuar con el botón.',
       errorTitle: 'No pudimos enviar la solicitud',
       errorBody: 'No se guardó tu solicitud después de dos intentos. Escríbenos por WhatsApp o llámanos para ayudarte.',
     },
