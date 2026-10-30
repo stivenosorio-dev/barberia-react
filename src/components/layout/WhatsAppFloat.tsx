@@ -3,7 +3,7 @@ import { siteConfig } from '../../config/site.config';
 export function WhatsAppFloat() {
   return (
     <a
-      className="fixed bottom-20 right-4 z-50 inline-flex min-h-14 min-w-14 items-center justify-center rounded-full bg-whatsapp text-whatsapp-fg shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:bottom-6 md:right-6"
+      className="fixed bottom-5 right-4 z-50 inline-flex min-h-14 min-w-14 items-center justify-center rounded-full bg-whatsapp text-whatsapp-fg shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:bottom-6 md:right-6"
       href={`https://wa.me/${siteConfig.contact.whatsapp}`}
       target="_blank"
       rel="noreferrer"

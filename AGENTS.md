@@ -13,6 +13,7 @@ Plantilla web mobile-first para negocios locales (barberías, salones, talleres,
 - `npm run dev` — UI local (envío simulado hasta la Fase 4)
 - `npm run verify` — typecheck + build. **Único chequeo antes de reportar o commitear.**
 - `npm run dev:cf` — build + Pages Functions locales con wrangler (desde la Fase 4)
+- `./scripts/opencode.ps1` — abre OpenCode cargando `CONTEXT7_API_KEY` desde `.env`
 
 ## Estructura
 ```
@@ -24,6 +25,7 @@ src/lib/          validation.ts · whatsapp.ts · api.ts · bookingContext.tsx
 plugins/          site-head.ts (Vite: SEO, JSON-LD, tema, fuentes y anti-parpadeo en el HTML)
 functions/api/    lead.ts
 apps-script/      Code.gs (sin secretos)
+scripts/          opencode.ps1 (arranca OpenCode con la clave de Context7)
 public/images/    fotos del cliente
 ```
 
@@ -37,7 +39,7 @@ public/images/    fotos del cliente
 - Componentes funcionales en PascalCase, uno por archivo; tipos desde `types.ts`. Interfaz en español de Colombia.
 
 ## No hagas
-- Secretos solo en variables de Cloudflare, `.dev.vars` y Script Properties. Nunca con prefijo `VITE_`, ni en el repo, ni en `MEMORY.md`.
+- Secretos solo en `.env` (local, no versionado), variables de Cloudflare y Script Properties. Nunca con prefijo `VITE_`, ni en el repo, ni en `MEMORY.md`. No leas, busques ni imprimas `.env`.
 - Ninguna llamada a Google desde el navegador: todo pasa por `/api/lead`.
 - No quites la neutralización de fórmulas (`=`, `+`, `-`, `@`) del Apps Script.
 - No instales dependencias sin preguntar. Permitidas: react, react-dom, vite, @vitejs/plugin-react, typescript, tailwindcss, @tailwindcss/vite, zod; dev: wrangler, @cloudflare/workers-types.

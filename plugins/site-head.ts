@@ -9,6 +9,9 @@ const paletteVariables = (palette: typeof siteConfig.theme.colors.light) =>
 const escapeHtml = (value: string) =>
   value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
+const escapeXml = (value: string) =>
+  value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&apos;');
+
 const radiusValues = { none: '0', sm: '0.125rem', md: '0.375rem', lg: '0.5rem', xl: '0.75rem' } as const;
 
 const googleFontFamilies = [siteConfig.fonts.display, siteConfig.fonts.body]
@@ -53,6 +56,20 @@ const antiFlickerScript = `(()=>{let mode=${JSON.stringify(siteConfig.theme.defa
 export function siteHeadPlugin(): Plugin {
   return {
     name: 'agenda-local-site-head',
+    generateBundle() {
+      const canonicalUrl = new URL(siteConfig.seo.canonicalUrl).toString();
+      const sitemapUrl = new URL('sitemap.xml', canonicalUrl).toString();
+      this.emitFile({
+        type: 'asset',
+        fileName: 'robots.txt',
+        source: `User-agent: *\nAllow: /\n\nSitemap: ${sitemapUrl}\n`,
+      });
+      this.emitFile({
+        type: 'asset',
+        fileName: 'sitemap.xml',
+        source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${escapeXml(canonicalUrl)}</loc></url></urlset>\n`,
+      });
+    },
     transformIndexHtml(html) {
       const withTitle = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(siteConfig.seo.title)}</title>`);
       const withLocale = withTitle.replace(/<html\b([^>]*)\blang=(['"])[^'"]*\2/i, `<html$1lang="${escapeHtml(siteConfig.business.locale)}"`);
@@ -69,7 +86,7 @@ export function siteHeadPlugin(): Plugin {
         { tag: 'meta', attrs: { name: 'theme-color', content: siteConfig.theme.colors.light.bg }, injectTo: 'head' as const },
         { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.googleapis.com' }, injectTo: 'head' as const },
         { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }, injectTo: 'head' as const },
-        { tag: 'link', attrs: { rel: 'stylesheet', href: `https://fonts.googleapis.com/css2?${googleFontFamilies}&display=swap` }, injectTo: 'head' as const },
+        { tag: 'link', attrs: { rel: 'preload', as: 'style', href: `https://fonts.googleapis.com/css2?${googleFontFamilies}&display=swap`, onload: "this.onload=null;this.rel='stylesheet'" }, injectTo: 'head' as const },
         { tag: 'style', children: themeStyle, injectTo: 'head' as const },
         { tag: 'script', attrs: { type: 'application/ld+json' }, children: JSON.stringify(businessSchema).replaceAll('<', '\\u003c'), injectTo: 'head' as const },
         { tag: 'script', children: antiFlickerScript, injectTo: 'head' as const },

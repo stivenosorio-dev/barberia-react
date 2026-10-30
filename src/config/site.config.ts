@@ -36,7 +36,7 @@ export const siteConfig: SiteConfig = {
     title: 'Barbería La Navaja Dorada | Barbería en Laureles, Medellín',
     description: 'Cortes y cuidado de barba en Laureles, Medellín. Agenda tu cita en La Navaja Dorada.',
     canonicalUrl: 'https://lanavajadorada.example',
-    ogImage: 'https://lanavajadorada.example/images/og-barberia.jpg',
+    ogImage: '/images/ogImage.png',
     schemaType: 'HairSalon',
     priceRange: '$$',
     geo: { latitude: 6.2442, longitude: -75.5812 },
@@ -97,7 +97,7 @@ export const siteConfig: SiteConfig = {
   ],
   copy: {
     labels: {
-      book: 'Reservar',
+      book: 'Reservar 1',
       call: 'Llamar',
       chooseService: 'Elige un servicio',
       openWhatsApp: 'Abrir WhatsApp',

@@ -12,8 +12,7 @@
       ".dev.vars": "deny",
       "package-lock.json": "deny",
       "dist/**": "deny",
-      "public/images/**": "deny",
-      "docs/historial.md": "deny"
+      "public/images/**": "deny"
     }
   },
   "mcp": {

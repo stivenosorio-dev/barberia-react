@@ -16,5 +16,5 @@
 
 **Seguridad y despliegue**
 - Nada con prefijo `VITE_` es secreto. Tras construir, buscar en `dist/` con `rg --no-ignore`.
-- Cloudflare: secretos en el panel del proyecto Pages; en local, `.dev.vars` (no versionado). `functions/api/lead.ts` sirve `/api/lead`. Confirmar con Context7 si Cloudflare recomienda hoy Pages o Workers con assets.
+- Cloudflare: secretos en el panel del proyecto Pages; en local, `.env` (no versionado; Wrangler acepta `.env` o `.dev.vars`, no ambos). `functions/api/lead.ts` sirve `/api/lead`. Confirmar con Context7 si Cloudflare recomienda hoy Pages o Workers con assets.
 - Entorno Windows/PowerShell: los scripts de `package.json` deben funcionar sin sintaxis bash.

@@ -21,13 +21,16 @@ Cada fase vive en su propio archivo para que los agentes lean **solo la fase en 
 - [ ] Carpeta nueva del proyecto con este harness; `git init` y primer commit.
 - [ ] Copiar del proyecto Astro: `apps-script/Code.gs` (probado) y, si se reutilizan, las fotos a `public/images/`.
 - [ ] Dejar en `.agents/skills/` solo `frontend-design` y `webapp-testing`; actualizar `skills-lock.json`. Cada skill instalada añade su descripción al contexto de cada sesión.
-- [ ] `CONTEXT7_API_KEY` definida como variable de entorno; `opencode mcp list` la muestra conectada.
+- [ ] Copiar `.env.example` a `.env` y rellenar `CONTEXT7_API_KEY` (las variables del Apps Script, en la Fase 4). Abrir OpenCode con `./scripts/opencode.ps1`; `opencode mcp list` muestra Context7 conectado.
 - [ ] Cuenta de Cloudflare y hoja de Google de pruebas listas.
 - [ ] Opcional: descomentar `model:` en los archivos de `.opencode/agents/` (coordinador y verificador con modelo intermedio; implementador con tu mejor modelo de código).
 
+## Decisión resuelta
+
+1. **Fallo al guardar (Fase 5):** si el guardado falla definitivamente, mostrar un error claro indicando que no se guardó y ofrecer WhatsApp directo y llamada.
+
 ## Decisiones pendientes
 
-1. **Fallo al guardar** (bloquea Fase 5): ¿qué muestra la pantalla y se ofrece WhatsApp directo aunque el lead no se haya guardado?
 2. **Aviso de privacidad** (Ley 1581 de 2012): ¿línea informativa o consentimiento obligatorio? Confirmar con abogado; no es asesoría legal.
 3. **Propiedad de hoja y script** (antes de Fase 7): ¿en la cuenta del cliente o en la tuya, compartida por correo?
 4. **Idempotencia ante fallo de `CacheService.put`** (Fase 4): aceptar el riesgo o mitigarlo.

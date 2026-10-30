@@ -10,6 +10,8 @@ type ConfigImageProps = {
 
 export function ConfigImage({ src, alt, width, height, className }: ConfigImageProps) {
   const [unavailable, setUnavailable] = useState(false);
+  const [webpFailed, setWebpFailed] = useState(false);
+  const webpSrc = src.startsWith('/') && /\.jpe?g$/i.test(src) ? src.replace(/\.jpe?g$/i, '.webp') : undefined;
 
   return (
     <div className={`relative overflow-hidden bg-surface-alt ${className}`}>
@@ -20,15 +22,25 @@ export function ConfigImage({ src, alt, width, height, className }: ConfigImageP
           <path strokeLinecap="round" strokeLinejoin="round" d="m4 17 5-5 3 3 2-2 6 5" />
         </svg>
       ) : (
-        <img
-          className="h-full w-full object-cover"
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          loading="lazy"
-          onError={() => setUnavailable(true)}
-        />
+        <picture key={webpFailed ? 'original' : 'webp'} className="block h-full w-full">
+          {webpSrc && !webpFailed && <source srcSet={webpSrc} type="image/webp" />}
+          <img
+            className="h-full w-full object-cover"
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            loading="lazy"
+            decoding="async"
+            onError={() => {
+              if (webpSrc && !webpFailed) {
+                setWebpFailed(true);
+                return;
+              }
+              setUnavailable(true);
+            }}
+          />
+        </picture>
       )}
     </div>
   );

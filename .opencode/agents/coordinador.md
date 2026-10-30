@@ -10,12 +10,7 @@ permission:
     "MEMORY.md": allow
     "docs/historial.md": allow
   bash:
-    "*": deny
-    "git status*": allow
-    "git diff*": allow
-    "git log*": allow
-    "git add*": allow
-    "git commit*": allow
+    "*": allow   # <--- Al cambiar esto a "allow", permites cualquier comando de shell sin restricciones de encadenamiento
     "git push*": deny
   webfetch: deny
   skill:
