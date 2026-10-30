@@ -281,7 +281,16 @@ Verifica al menos estos grupos de configuración: `business`, `brand`, `contact`
 
 La hoja del cliente funciona como registro operativo, no como panel propio. Acordar con el negocio quién es propietario, quién puede consultar/editar, cómo se protege y cuánto tiempo conserva registros. La pestaña esperada `Leads` contiene fecha, nombre, teléfono, servicio, fecha/hora preferida, nota, estado, origen y enlace “Escribir”; el negocio revisa y cambia manualmente el estado (nuevo/contactado/confirmado/cancelado). La fuente de origen prevista incluye web, Maps o Instagram cuando se implemente el enlace correspondiente; los envíos web usan `web` como valor predeterminado.
 
-La integración pasa por `POST /api/lead`, que revalida en el servidor y llama al Apps Script con un token. El navegador no debe llamar a Google directamente. Configura la integración usando cuentas del cliente cuando sea posible, con permisos mínimos. En Apps Script, guardar el código no actualiza por sí solo la versión desplegada: tras un cambio autorizado, publica una nueva versión de la implementación existente y conserva la URL `/exec`; crear una implementación nueva puede cambiar la URL. No compartas el token ni lo incluyas en el cliente.
+La integración pasa por `POST /api/lead`, que revalida en el servidor y llama al Apps Script con un token. En Cloudflare Pages, `functions/api/lead.ts` atiende esa ruta como Pages Function. El navegador no debe llamar a Google directamente. Configura la integración usando cuentas del cliente cuando sea posible, con permisos mínimos. En Apps Script, guardar el código no actualiza por sí solo la versión desplegada: tras un cambio autorizado, publica una nueva versión de la implementación existente y conserva la URL `/exec`; crear una implementación nueva puede cambiar la URL. No compartas el token ni lo incluyas en el cliente.
+
+### Publicación Git-based en Cloudflare Pages
+
+1. En Cloudflare, abre **Workers & Pages → Create application → Pages → Import an existing Git repository**, conecta el proveedor Git y selecciona el repositorio y la rama aprobados. Configura el directorio raíz como `.`.
+2. En la configuración del build, indica el comando `npm run build` y el directorio de salida `dist`. No agregues un comando de despliegue personalizado de Wrangler: Pages construye y publica cada cambio de la rama conectada. `wrangler.toml` identifica el proyecto Pages y el directorio de salida.
+3. Pages detecta `functions/api/lead.ts` en el repositorio y la publica como la ruta `/api/lead` sin reglas de reescritura.
+4. Antes del despliegue, abre **Workers & Pages → [proyecto] → Settings → Variables and Secrets** y configura las variables de producción requeridas por la función: `APPS_SCRIPT_URL`, `APPS_SCRIPT_TOKEN` e `IP_HASH_SALT`. Guarda las variables/secretos sin incluir sus valores en el repositorio, el manual ni el frontend.
+5. Para un dominio propio, agrega y verifica el dominio en la sección de dominios del proyecto; sigue las instrucciones de DNS indicadas por Cloudflare y confirma HTTPS antes de entregar la URL.
+6. Comprueba la ruta sin crear una solicitud: abre `https://[dominio]/api/lead` con método GET y revisa en Network que responda **405** con `{"code":"INVALID"}`. La Pages Function rechaza otros métodos antes de llamar a Apps Script. No pruebes un POST válido en la hoja productiva: el flujo completo solo se prueba con hoja de prueba y autorización explícita.
 
 ### Pruebas antes de publicar
 

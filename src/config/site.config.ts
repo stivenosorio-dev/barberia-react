@@ -97,7 +97,7 @@ export const siteConfig: SiteConfig = {
   ],
   copy: {
     labels: {
-      book: 'Reservar 1',
+      book: 'Reservar',
       call: 'Llamar',
       chooseService: 'Elige un servicio',
       openWhatsApp: 'Abrir WhatsApp',
