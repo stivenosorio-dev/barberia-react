@@ -21,7 +21,8 @@ export function ServiceCard({ service }: { service: Service }) {
   const chooseService = () => {
     setSelectedServiceId(service.id);
     const target = document.getElementById('reservar') ?? document.getElementById('booking');
-    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+    target?.scrollIntoView({ behavior, block: 'start' });
   };
 
   return (

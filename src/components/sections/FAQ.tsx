@@ -13,7 +13,7 @@ export function FAQ() {
             <details key={`${item.q}-${index}`} className="group py-5">
               <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 font-semibold text-fg marker:hidden focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
                 {item.q}
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5 shrink-0 text-primary transition-transform group-open:rotate-45" stroke="currentColor" strokeWidth="1.8">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5 shrink-0 text-primary transition-transform motion-reduce:transition-none group-open:rotate-45" stroke="currentColor" strokeWidth="1.8">
                   <path strokeLinecap="round" d="M12 5v14M5 12h14" />
                 </svg>
               </summary>

@@ -82,7 +82,7 @@ export function siteHeadPlugin(): Plugin {
         { tag: 'meta', attrs: { property: 'og:title', content: escapeHtml(siteConfig.seo.title) }, injectTo: 'head' as const },
         { tag: 'meta', attrs: { property: 'og:description', content: description }, injectTo: 'head' as const },
         { tag: 'meta', attrs: { property: 'og:url', content: canonical }, injectTo: 'head' as const },
-        { tag: 'meta', attrs: { property: 'og:image', content: escapeHtml(siteConfig.seo.ogImage) }, injectTo: 'head' as const },
+        { tag: 'meta', attrs: { property: 'og:image', content: escapeHtml(new URL(siteConfig.seo.ogImage, siteConfig.seo.canonicalUrl).toString()) }, injectTo: 'head' as const },
         { tag: 'meta', attrs: { name: 'theme-color', content: siteConfig.theme.colors.light.bg }, injectTo: 'head' as const },
         { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.googleapis.com' }, injectTo: 'head' as const },
         { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }, injectTo: 'head' as const },

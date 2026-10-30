@@ -120,3 +120,17 @@ No se añadirán datos reales del negocio ni funciones ajenas a estos ajustes. L
 - Simular o comprobar bloqueo del navegador y confirmar que la alternativa manual permanece visible y funciona.
 - Comprobar que el texto de WhatsApp corresponde a la solicitud y que la dirección del mapa proviene de configuración y está identificada como prototipo.
 - Ejecutar `npm run verify` al terminar el bloque.
+
+# Fase 6 — SEO, rendimiento y accesibilidad
+
+**Estado:** cerrada tras revisión manual aprobada por el usuario. `npm run verify` pasó después de las correcciones. El usuario confirmó los umbrales de Lighthouse; no se almacenan puntuaciones.
+
+**Objetivo:** medir Lighthouse móvil sobre el build y corregir únicamente lo que no alcance las metas acordadas.
+
+- [x] **T6.1** Verificar metadatos, Open Graph y JSON-LD válidos; generar `sitemap.xml` y `robots.txt` desde `seo.canonicalUrl` en `plugins/site-head.ts`.
+- [x] **T6.2** Imágenes: AVIF/WebP, dimensiones explícitas, lazy salvo hero.
+- [x] **T6.3** Fuentes: ≤2 familias, `display=swap`, precarga de la crítica; valorar autoalojar si penaliza.
+- [x] **T6.4** Carga diferida (`React.lazy` + `Suspense`) de secciones bajo el pliegue solo si la medición lo justifica.
+- [x] **T6.5** Accesibilidad: contraste AA en ambos temas, `label` en cada campo, foco visible, objetivos ≥44px, `prefers-reduced-motion`.
+
+**Cierre:** revisión manual y aprobación del usuario; verificación aprobada tras las correcciones y umbrales de Lighthouse confirmados por el usuario, sin conservar resultados numéricos.

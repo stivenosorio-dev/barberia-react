@@ -6,7 +6,7 @@ export function ThemeToggle() {
   if (!allowToggle) return null;
 
   return (
-    <button type="button" aria-label={mode} aria-pressed={mode === 'dark'} onClick={toggleTheme}>
+    <button className="inline-flex min-h-11 min-w-11 items-center justify-center" type="button" aria-label={mode} aria-pressed={mode === 'dark'} onClick={toggleTheme}>
       {mode}
     </button>
   );

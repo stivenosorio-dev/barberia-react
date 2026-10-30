@@ -22,7 +22,7 @@ export function Hero() {
       <div className="order-1 overflow-hidden rounded-[var(--radius)] bg-surface-alt lg:order-2">
         <img
           className="aspect-[4/3] h-full w-full object-cover"
-          src={siteConfig.seo.ogImage}
+          src={siteConfig.seo.ogImage.replace(/\.png$/, '.webp')}
           width={1200}
           height={900}
           fetchPriority="high"

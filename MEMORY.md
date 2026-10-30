@@ -3,9 +3,8 @@
 Estado vivo. Reescríbelo en cada cierre, no acumules: máx. 30 líneas. El detalle de fases cerradas va a `docs/historial.md`.
 
 ## Estado
-- Fase actual: 6 (SEO, rendimiento y accesibilidad).
-- Último cierre: Fase 6.1, revisión manual aprobada por el usuario; detalle archivado en `docs/historial.md`.
-- Fases 1–5 y 6.1 cerradas; decisión 1 resuelta: tras fallo final, avisar que no se guardó y ofrecer WhatsApp y llamada.
+- Fase 6 (SEO, rendimiento y accesibilidad) cerrada con aprobación manual del usuario; detalle en `docs/historial.md`.
+- Fases 1–5 y 6.1 también cerradas; decisión 1 resuelta: tras fallo final, avisar que no se guardó y ofrecer WhatsApp y llamada.
 
 ## Decisiones vigentes
 - React + Vite (SPA), Tailwind 4, Zod. Backend en Cloudflare Pages Functions. Datos en Google Sheets vía Apps Script.
@@ -18,4 +17,4 @@ Estado vivo. Reescríbelo en cada cierre, no acumules: máx. 30 líneas. El deta
 - Mantener un solo proceso Wrangler durante pruebas locales.
 
 ## Próximo paso
-- Preparar el plan del manual de comercialización, configuración e inducción solicitado; aún no redactarlo.
+- Preparación para Netlify: próximo trabajo aprobado por el usuario.
